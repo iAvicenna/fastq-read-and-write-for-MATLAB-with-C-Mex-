@@ -36,7 +36,7 @@ Reading using fastqread.Elapsed time is 37.236882 seconds.
 
 # Requirements
 
-Matlab(2018b), C. Speed testing function also requires nt2aa function from the bioinformatics toolbox. 
+Matlab(2018b), C. Some of the tests require fastqwrite and fastqread from bioinformatics toolbox.
 
 # Author
 Sina Tureli
