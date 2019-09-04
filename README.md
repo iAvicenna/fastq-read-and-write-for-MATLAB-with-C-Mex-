@@ -22,21 +22,16 @@ There is also a query function that counts the number of sequences and does simp
 
 # Comparison to fastqread and fastqwrite from Bioinformatics Toolbox
 
-<p align="center">
 Number of sequences 2998212
-</p>  
-<p align="center">
+
 Writing using writeFastq.Elapsed time is 18.933540 seconds.
-</p>  
-<p align="center">
+
 Writing using fastqwrite.Elapsed time is 135.610968 seconds.
-</p>
-<p align="center">
+
 Reading using readFastq.Elapsed time is 15.899386 seconds.
-</p>
-<p align="center">
+
 Reading using fastqread.Elapsed time is 37.236882 seconds.
-</p>
+
 
 
 # Requirements
