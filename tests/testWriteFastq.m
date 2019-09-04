@@ -1,0 +1,81 @@
+function [test_name,isFailed]=testWriteFastq(failSwitch)
+    
+    if nargin ~=1
+        error('Requires failSwitch argument');
+    end
+
+    addpath('../');
+    isFailed=0;
+    test_name='testWriteFastq';
+    
+    try
+        [heads1,seqs1,quals1]=readFastq('./test2.fastq');
+        writeFastq('./test3.fastq',heads1,seqs1,quals1);
+        [heads2,seqs2,quals2]=readFastq('./test2.fastq');
+    catch ME
+        isFailed=0;
+        fprintf(ME);
+        return;
+    end
+    
+    
+    if any(cellfun(@(x,y)strcmp(x,y),heads1,heads2)==0) || ...
+             any(cellfun(@(x,y)strcmp(x,y),seqs1,seqs2)==0) || ...
+             any(cellfun(@(x,y)strcmp(x,y),quals1,quals2)==0)
+         
+         isFailed=1;
+         return
+    end
+    
+   
+   
+    heads2{1}='@M05698:151:000000000-CH5PC:1:1102:15483:1001 1:N:0:GTAACATC+CTGCGATT';
+    seqs2{1}='ACGAGAGATACGACTCTCCCTGATGCTCGAACATATATGCTGGTTTGGTCACTGTCCGTGCTCGGGTGGTGAACCCCCCAAATGTACAATTTGTCAAATTTGCCATTGTTTGGCATAGTCACGTTCAGCGCTGGATATTTGTATTCTAATTTGTGCAACCAATTCAATCTACTAAAGAAACTGTTAACAGATCCCCTTTTGCAAGCATAGCTTTTCCCATCCTGAGCGTATCTCTCGN';
+    quals2{1}=';C90*2F<GF=E?DEDGGGFGFCGGEFGC<+FCGGGFGGFGGGGGGGGGFGGGGGGDFGGEGGGGGC@GGGGFF>GGFEEF<GFFGFGGFGGGGGGGGGGGGGGGGGCGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGFGGGGFGGGGGGGGGGFFGGGGFGGGGGGFGGGGGGGGGGGFGFGGGGGFGCGGGGGGGGGGGGGGGGGGFFGGFGGGGGGGGGGGGGGGGGGCCA8#';
+    heads2{2}='@M05698:151:000000000-CH5PC:1:1102:15483:1001 2:N:0:GTAACATC+CTGCGATT';
+    seqs2{2}='ACGAGAGATACGCTCAGGATGGGAAAAGCTATGCTTGCAAAAGGGGATCTGTTAACAGTTTCTTTAGTAGATTGAATTGGTTGCACAAATTAGAATACAAATATCCAGCGCTGAACGTGACTATGCCAAACAATGGCAAATTTGACAAATTGTACATTTGGGGGGTTCACCACCCGAGCACGGACAGTGACCAAACCAGCATATATGTTCGAGCATCAGGGAGAGTCGTATCTCTCGT';
+    quals2{2}='2>:?A4DFFFFEAE:@5:0*:@FFFFCABFAFFFGFGFFGGFF?6?GGGGFE8CGGFFGFFCGGFGGFEFFCDFFGGGGGFEFGFGGGGD@GGGGGGGFFGGGDGEGGGGFBCFGGGCGGGGGGGGGFGGGGFAFGGGGGGGGGGGFFFEFGGGGGGGGGGGGGGGGGGGDGGGGFDDGGGGGGGGGGGGCGGGGGGGGGGGGGFGGGGGGGGGGFGGGGGGGGGGFGGGGGGCCCCC';
+    heads2{3}='@M05698:151:000000000-CH5PC:1:1102:12690:1043 1:N:0:GTAACATC+CAGCGATT';
+    seqs2{3}='ACGAAGATACGACTCTCCCAGATGCTCGAACATATATGTTGGTTTCGTCACTGTCCGTGCTCGGGTGGTGAACCCCCCAAATGTACAATTTGTCAAATTTGCCATTGTTTGGCATAGTCACGTTCAGCGCTGGATATTTGTATTCTAATTTGTGCAACCAATTCAGTCTACTAAAGAAACTGTTAACAGATCCCCTTTTGCAAGCATAGCTTTTCCCATCCTGAGCGTATCTCTCGT';
+    quals2{3}='*7CC>7GCA832E5EFCC<++9EEEGE99F@:ECFCGEEFGGEF4*FGFF:@FEGFCCFCF:7CGGGGGGGFGDGGF?EGEFF<FDFFFCEEDGGCFGEGFF<<<GGFFE9CFGGFCB7DEF<GFF@GFGGGFC<C9FEDGGGFFCGGFGGGDFEDEFEF<GE@C,FC<EEEECFEGGFGGFGGGFGFC;+CCGFGCF@GGGGFEAEC8<8<DE<DFC,@CGGDGFAGCGGGCCCCC';
+
+    heads3=heads2;
+    seqs3=seqs2;
+    quals3=quals2;
+
+    try
+        writeFastq('test4.fastq',heads2,seqs2,quals2);
+    catch ME
+        isFailed=1;
+    end
+    
+    seqs2{100}(5)='Y';
+    isFailed=1;
+    
+    try
+        writeFastq('test4.fastq',heads2,seqs2,quals2);
+    catch ME
+        if strcmp(ME.message,'Error in the sequence at line 100. It contains a non A,G,C,T,N letter at position 5.')
+            isFailed=0;
+        end
+    end
+    
+    isFailed=1;
+    if failSwitch
+        quals2{51}(3)=[];
+    else
+        quals2{50}(3)=[];
+    end
+    
+    try
+        writeFastq('test4.fastq',heads2,seqs2,quals2);
+    catch ME
+        if strcmp(ME.message,'Error sequence 50. Quality and Sequence length not the same.')
+            isFailed=0;
+        end
+    end
+    
+    
+
+
+end
