@@ -1,4 +1,4 @@
-#fastqRead and fastqWrite
+# fastqRead and fastqWrite
 This is a fast (compared to MATLAB bioinformatics tool box provided functions) fastq read and write function for MATLAB mostly coded in C and mexed. The functions can be called as
 
 <p align="center">
