@@ -1,4 +1,4 @@
-# fastq-read-and-write-for-MATLAB-with-C-Mex-
+#fastqRead and fastqWrite
 This is a fast (compared to MATLAB bioinformatics tool box provided functions) fastq read and write function for MATLAB mostly coded in C and mexed. The functions can be called as
 
 <p align="center">
@@ -12,7 +12,7 @@ writeFastq(output_name,heads,seqs,quals);
 
 It allows block reads. There is also a query function that counts the number of sequences and does simple integrity checks on the fastq file to make sure there are no errors.
 
-# Comparison with fastqread and fastqwrite from bioinformatics toolbox
+# Comparison To fastqread and fastqwrite from Bioinformatics Toolbox
 
 
 Number of sequences 2998212
