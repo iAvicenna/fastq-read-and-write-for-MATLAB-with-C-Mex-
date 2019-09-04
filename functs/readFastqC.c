@@ -72,7 +72,7 @@ void mexFunction(int nlhs,mxArray *plhs[ ],int nrhs,const mxArray *prhs[ ])
         
         if (block[1]>number_of_sequences)
         {
-            mexErrMsgTxt("Second element of block array must be smaller than the second");
+            block[1]=number_of_sequences;
         }
         
         number_of_sequences=block[1]-block[0]+1;
