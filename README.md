@@ -11,7 +11,14 @@ writeFastq(output_name,heads,seqs,quals);
 </p>
 
 
-It allows block reads. There is also a query function that counts the number of sequences and does simple integrity checks on the fastq file to make sure there are no errors.
+It allows block reads as follows:
+
+<p align="center">
+[heads,quals,seqs]=readFastq(input_name, [10000 20000]);
+</p>
+
+
+There is also a query function that counts the number of sequences and does simple integrity checks on the fastq file to make sure there are no errors.
 
 # Comparison to fastqread and fastqwrite from Bioinformatics Toolbox
 
