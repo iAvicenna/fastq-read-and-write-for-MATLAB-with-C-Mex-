@@ -26,7 +26,7 @@ void mexFunction(int nlhs,mxArray *plhs[ ],int nrhs,const mxArray *prhs[ ])
     
     FILE *file_ptr;
     char* file_name;
-    int file_name_buffer,status,cell_buffer;
+    int file_name_buffer,status,cell_buffer1,cell_buffer2,cell_buffer3;
     char* line1;
     char* line2;
     char* line3;
@@ -80,7 +80,7 @@ void mexFunction(int nlhs,mxArray *plhs[ ],int nrhs,const mxArray *prhs[ ])
 
 
     if (status != 0) {
-        mexErrMsgTxt( "Failed to copy input string into allocated memory.");
+        mexErrMsgTxt( "Failed to copy file_name string into allocated memory.");
     }
       
 
@@ -97,16 +97,16 @@ void mexFunction(int nlhs,mxArray *plhs[ ],int nrhs,const mxArray *prhs[ ])
     while (k<number_of_sequences){
     
         cell_element_ptr1 = mxGetCell(prhs[1],k);
-        cell_buffer = mxGetN(cell_element_ptr1)*sizeof(mxChar)+1;
-        line1 = mxMalloc(cell_buffer);
+        cell_buffer1 = mxGetN(cell_element_ptr1)*sizeof(mxChar)+1;
+        line1 = mxMalloc(cell_buffer1);
         
         cell_element_ptr2 = mxGetCell(prhs[2],k);
-        cell_buffer = mxGetN(cell_element_ptr2)*sizeof(mxChar)+1;
-        line2 = mxMalloc(cell_buffer);
+        cell_buffer2 = mxGetN(cell_element_ptr2)*sizeof(mxChar)+1;
+        line2 = mxMalloc(cell_buffer2);
         
         cell_element_ptr3 = mxGetCell(prhs[3],k);
-        cell_buffer = mxGetN(cell_element_ptr3)*sizeof(mxChar)+1;
-        line3 = mxMalloc(cell_buffer);
+        cell_buffer3 = mxGetN(cell_element_ptr3)*sizeof(mxChar)+1;
+        line3 = mxMalloc(cell_buffer3);
         
         
         if (mxGetN(cell_element_ptr2)!=mxGetN(cell_element_ptr3))
@@ -120,15 +120,15 @@ void mexFunction(int nlhs,mxArray *plhs[ ],int nrhs,const mxArray *prhs[ ])
         
   
 
-        status = mxGetString(cell_element_ptr1,line1,cell_buffer);
+        status = mxGetString(cell_element_ptr1,line1,cell_buffer1);
         if (status != 0) {
             mexErrMsgTxt( "Failed to copy header string into allocated memory.");
         }
-        status = mxGetString(cell_element_ptr2,line2,cell_buffer);
+        status = mxGetString(cell_element_ptr2,line2,cell_buffer2);
         if (status != 0) {
             mexErrMsgTxt( "Failed to copy sequence string into allocated memory.");
         }
-        status = mxGetString(cell_element_ptr3,line3,cell_buffer);
+        status = mxGetString(cell_element_ptr3,line3,cell_buffer3);
         if (status != 0) {
             mexErrMsgTxt( "Failed to copy quality string into allocated memory.");
         }
